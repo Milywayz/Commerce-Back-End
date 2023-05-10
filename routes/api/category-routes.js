@@ -1,11 +1,10 @@
 const router = require('express').Router();
 const { Category, Product, Tag } = require('../../models');
 
-// The `/api/categories` endpoint
+//! The `/api/categories` endpoint
 
+// Find all categories
 router.get('/', async (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
   try {
     const categoryData = await Category.findAll({
       include: [{ model: Product }],
@@ -16,9 +15,9 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+// Find one category by its `id` value
 router.get('/:id', async (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
   try {
     const categoryData = await Category.findByPk(req.params.id, {
       include: [{ model: Product }],
@@ -35,8 +34,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
+// Create a new category
 router.post('/', async (req, res) => {
-  // create a new category
   try {
     const creatingCategory = await Category.create({
       category_name: req.body.category_name,
@@ -47,30 +47,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Update a category by its `id` value
 router.put('/:id', async (req, res) => {
-  // update a category by its `id` value
   try {
     const categoryUpdated = await Category.update(
       {
-        // All the fields you can update and the data attached to the request body.
         category_name: req.body.category_name
       },
       {
-        // Gets the books based on the isbn given in the request parameters
         where: {
           id: req.params.id,
         },
       }
     );
-    // Sends the updated book as a json response
+
     res.json(categoryUpdated);
   } catch (err) {
     res.json(err);
   }
 });
 
+// Delete a category by its `id` value
 router.delete('/:id', async (req, res) => {
-  // delete a category by its `id` value
   try {
     const categoryData = await Category.destroy({
       where: {
