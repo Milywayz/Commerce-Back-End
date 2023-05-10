@@ -15,15 +15,15 @@ Category.hasMany(Product, {
   onDelete: 'CASCADE'
 })
 // Products belongToMany Tags (through ProductTag)
-Product.belongsToMany(ProductTag, {
+Product.belongsToMany(Tag, {
   through: ProductTag,
   onDelete: 'SET NULL'
-})
+});
 // Tags belongToMany Products (through ProductTag)
 Tag.belongsToMany(Product, {
-  through: Product,
+  through: ProductTag,
   onDelete: 'SET NULL'
-})
+});
 module.exports = {
   Product,
   Category,

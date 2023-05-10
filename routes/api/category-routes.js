@@ -63,7 +63,7 @@ router.put('/:id', async (req, res) => {
       }
     );
     // Sends the updated book as a json response
-    res.json(categoryUpdated );
+    res.json(categoryUpdated);
   } catch (err) {
     res.json(err);
   }
